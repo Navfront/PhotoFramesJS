@@ -1,0 +1,23 @@
+.ramka {
+    margin: 10% auto;
+    border: 2px solid red;
+    position: relative;
+}
+
+.photo {
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform: translate(-50%, 0);
+}
+
+.nail {
+    transform: translate(-50%, -50%);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #333333;
+    position: absolute;
+    left: 50%;
+    top: 5px;
+}
