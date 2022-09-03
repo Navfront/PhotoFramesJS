@@ -1,12 +1,45 @@
 const root = document.querySelector('#root')
+const range = document.querySelector('.range')
+const counter = document.querySelector('.counter')
 
-function render(width, heigth, photoarr = []) {
-    const parent = document.createElement('div')
+let frame = null
+let frameWidth = 300 
+let frameHeigth = 200
+let photoCount = 1
 
-    parent.classList.add('ramka')
-    root.appendChild(parent);
-    parent.style.width = `${width}px`;
-    parent.style.height = `${heigth}px`;
+
+function useDebounce(ms) {
+    let canWork = true;
+    return (fn) => {
+        if (canWork) {
+            fn();
+            canWork = false;
+            setTimeout(() => {
+                canWork = true;
+            }, ms)
+        } 
+    }
+}
+
+const debounce = useDebounce(300)
+
+
+function render(n = photoCount, width = frameWidth, height = frameHeigth) {
+    if (frame) {
+        frame.remove();
+        frame = null;
+        renderFrame(width, height, calculate(n,width,height))
+    } else
+    { renderFrame(width, height, calculate(n, width, height)) }
+    
+}
+
+function renderFrame(width, heigth, photoarr = []) {
+    frame = document.createElement('div')
+    frame.classList.add('frame')
+    root.appendChild(frame);
+    frame.style.width = `${width}px`;
+    frame.style.height = `${heigth}px`;
 
     for (photo of photoarr) {
         const element = document.createElement('div');
@@ -19,16 +52,10 @@ function render(width, heigth, photoarr = []) {
         element.style.top = `${photo.y}px`;
         nail.classList.add('nail')
         element.appendChild(nail)
-        parent.appendChild(element)
-        console.log(photo);
+        frame.appendChild(element)
     }
 }
 
-/**
- * @param n - количество фоторамок
- * @param width - ширина области для фоторамок
- * @param height - высота области для фоторамок
- */
 function calculate(n, width, height) { 
     const arr = []
     const cols = Math.ceil(Math.sqrt(n)) 
@@ -68,6 +95,13 @@ function calculate(n, width, height) {
     return arr
 }
 
-render(300, 200, calculate(6,300,200))
+range.addEventListener('input', (evt) => {
+    debounce(() => {
+        render(evt.target.value);
+        counter.textContent = evt.target.value;
+    })
+})
+
+render()
 
 

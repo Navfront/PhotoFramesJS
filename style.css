@@ -1,4 +1,12 @@
-.ramka {
+.container {
+    width: 700px;
+    margin: 0 auto;
+    display: grid;
+    justify-content: center;
+    text-align: center;
+}
+
+.frame {
     margin: 10% auto;
     border: 2px solid red;
     position: relative;
@@ -20,4 +28,12 @@
     position: absolute;
     left: 50%;
     top: 5px;
+}
+
+label {
+    display: block
+}
+
+label+label{
+    margin-top: 15px;
 }
