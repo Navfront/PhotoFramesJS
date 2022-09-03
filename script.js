@@ -71,7 +71,7 @@ function calculate(n, width, height) {
     for (let i = 0; i < n; i++){
         if (i < nInCustomRow) {
             let xSpaceLeft = (width - pW * nInCustomRow) / 2;
-            arr.push({ width: pW, height: pH, x: Math.ceil(currX + pW + xSpaceLeft), y: Math.ceil(currRow * pH + offsetY)})
+            arr.push({ width: pW, height: pH, x: Math.round(currX + pW + xSpaceLeft), y: Math.round(currRow * pH + offsetY)})
             currCol++;
             currX += pW;
             if (currCol > nInCustomRow) {
@@ -81,7 +81,7 @@ function calculate(n, width, height) {
             }
         } else {
 
-            arr.push({ width: pW, height: pH, x: Math.ceil(currX + pW), y: Math.ceil(currRow * pH + offsetY) })
+            arr.push({ width: pW, height: pH, x: Math.round(currX + pW), y: Math.round(currRow * pH + offsetY) })
             currX += pW;
             currCol++;
             if (currCol > cols) {
